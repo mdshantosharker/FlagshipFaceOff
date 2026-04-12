@@ -1,71 +1,68 @@
 import React from "react";
 import { Link } from "react-router";
+import MyNavLink from "./Shared/MyNavLink";
+import { MdBookmarkAdd, MdShoppingCart } from "react-icons/md";
 
 const Navbar = () => {
+  const links = (
+    <div className="flex text-xl font-bold gap-10 items-center">
+      <li>
+        <MyNavLink to={"/"}>Home</MyNavLink>
+      </li>
+      <li>
+        <MyNavLink to={"/about"}>About</MyNavLink>
+      </li>
+      <li>
+        {" "}
+        <MyNavLink to={"/cart"}>
+          <MdShoppingCart size={20} />
+        </MyNavLink>
+      </li>
+      <li>
+        {" "}
+        <MyNavLink to={"/favorites"}>
+          <MdBookmarkAdd size={20} />
+        </MyNavLink>
+      </li>
+    </div>
+  );
   return (
-    <div className="navbar p-0 bg-base-100 shadow-sm">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <div className="bg-base-100 shadow-sm">
+      <div className="navbar  container mx-auto p-0 ">
+        <div className="navbar-start ">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {" "}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />{" "}
+              </svg>
+            </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3  p-2 shadow"
             >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
+              {links}
+            </ul>
           </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+          <Link to={"/"} className="font-bold text-xl">
+            FlagshipFaceOff
+          </Link>
         </div>
-        <Link to={"/"} className="font-bold text-xl">
-          FlagshipFaceOff
-        </Link>
-      </div>
 
-      <div className="navbar-end hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to={"/"}>Home</Link>
-          </li>
-          <li>
-            <Link to={"/about"}>About</Link>
-          </li>
-          <li>
-            <Link to={"/cart"}>Cart</Link>
-          </li>
-          <li>
-            <Link to={"/favorites"}>Favorite</Link>
-          </li>
-        </ul>
+        <div className="navbar-end hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{links}</ul>
+        </div>
       </div>
     </div>
   );
