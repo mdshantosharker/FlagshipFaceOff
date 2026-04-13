@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     element: <MainLayout></MainLayout>,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, Component: Home },
+      { index: true, loader: () => fetch("/phones.json"), Component: Home },
       {
         path: "/favorites",
         Component: Favorites,
