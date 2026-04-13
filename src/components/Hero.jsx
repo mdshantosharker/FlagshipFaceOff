@@ -1,37 +1,42 @@
-import React from "react";
-import heroImage from "../assets/banner.png";
-import MyButton from "./Shared/MyButton";
-const Hero = ({handleSearch}) => {
- 
+import React, { useState } from 'react'
+import Button from './shared/Button'
+import bannerImg from '../assets/banner.png'
+const Hero = ({ handleSearch }) => {
+  const [searchText, setSearchText] = useState('')
   return (
-    <div className="mt-10">
-      <img className="lg:max-w-4xl mx-auto " src={heroImage} alt="" />
-      <div className="text-center lg:space-y-4 space-y-2">
-        <h1 className="font-thin mt-5 text-3xl lg:text-7xl text-gray-900">
-          Browse,Search,View,Buy
+    <div className='py-12'>
+      <img
+        src={bannerImg}
+        className='w-full mx-auto md:w-auto md:max-w-md '
+        alt=''
+      />
+      <div className='text-center space-y-4'>
+        <h1 className='text-7xl font-thin text-gray-900'>
+          Browse, Search, View, Buy
         </h1>
-        <p className="text-gray-500 lg:text-xl">
-          Best place to browser,search,view details and purchase of top flagship{" "}
-          <br />
-          phones of the current time - FlagshipFaceOff
+        <p className=' text-gray-500'>
+          Best place to browse, search, view details and purchase of top
+          flagship phones <br /> of the current time - FlagshipFaceOff
         </p>
-
         <form
-          onSubmit={handleSearch}
-          className="flex flex-col md:flex-row justify-center items-center mb-4 md:px-24"
+          onSubmit={e => {
+            handleSearch(e, searchText)
+            setSearchText('')
+          }}
+          className='flex flex-col justify-center items-center w-full mb-4 md:flex-row md:px-24'
         >
           <input
-            type="text"
-            name="input" 
-            placeholder="Search Phone by Name"
-            className="bg-white border border-gray-300 rounded-xs shadow-md w-2/3 h-12 px-4 mb-3 focus:outline-none focus:shadow-outline md:mr-2 md:mb-0"
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
+            placeholder='Search Phone by Name'
+            type='text'
+            className='w-2/3 h-12 px-4 mb-3  bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:outline-none focus:shadow-outline'
           />
-
-          <MyButton>Search</MyButton>
+          <Button type='submit' label='Search' />
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

@@ -1,34 +1,40 @@
-import { createBrowserRouter } from "react-router";
-import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
-import ErrorPage from "../pages/ErrorPage";
-import Favorites from "../pages/Favorites";
-import About from "../pages/About";
-import PhoneDetails from "../pages/PhoneDetails";
+import { createBrowserRouter } from 'react-router'
+import MainLayout from '../layouts/MainLayout'
+import About from '../pages/About'
+import Favorites from '../pages/Favorites'
+import Home from '../pages/Home'
+import ErrorPage from '../pages/ErrorPage'
+import PhoneDetails from '../pages/PhoneDetails'
+
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <MainLayout></MainLayout>,
-    errorElement: <ErrorPage />,
+    path: '/',
+    Component: MainLayout,
+    errorElement: <ErrorPage></ErrorPage>,
+
     children: [
       {
         index: true,
-        loader: () => fetch("/phones.json"),
-        hydrateFallbackElement: <p>loading.....</p>,
+        path: '/',
         Component: Home,
+        loader: () => fetch('../phones.json'),
+        hydrateFallbackElement: <p>Loading, Please Wait....</p>,
       },
       {
-        path: "/favorites",
+        path: '/phone-details/:id',
+        Component: PhoneDetails,
+        loader: () => fetch('../phones.json'),
+        hydrateFallbackElement: <p>Loading, Please Wait....</p>,
+      },
+      {
+        path: '/favorites',
         Component: Favorites,
       },
+
       {
-        path: "/about",
+        path: '/about',
         Component: About,
-      },
-      {
-        path: "/phone-details",
-        Component: PhoneDetails,
       },
     ],
   },
-]);
+])

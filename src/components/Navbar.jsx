@@ -1,71 +1,113 @@
-import React from "react";
-import { Link } from "react-router";
-import MyNavLink from "./Shared/MyNavLink";
-import { MdBookmarkAdd, MdShoppingCart } from "react-icons/md";
+import React, { useContext } from 'react'
+import { Link, NavLink } from 'react-router'
+import { MdBookmarkAdd, MdShoppingCart } from 'react-icons/md'
+import { CartContext } from '../providers/Contexts'
 
 const Navbar = () => {
-  const links = (
-    <div className="flex text-xl font-bold gap-10 items-center">
-      <li>
-        <MyNavLink to={"/"}>Home</MyNavLink>
-      </li>
-      <li>
-        <MyNavLink to={"/about"}>About</MyNavLink>
-      </li>
-      <li>
-        {" "}
-        <MyNavLink to={"/cart"}>
-          <MdShoppingCart size={20} />
-        </MyNavLink>
-      </li>
-      <li>
-        {" "}
-        <MyNavLink to={"/favorites"}>
-          <MdBookmarkAdd size={20} />
-        </MyNavLink>
-      </li>
-    </div>
-  );
+  const { cart } = useContext(CartContext)
   return (
-    <div className="bg-base-100 shadow-sm">
-      <div className="navbar  container lg:w-11/12 mx-auto p-0 ">
-        <div className="navbar-start ">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3  p-2 shadow"
+    <div className='navbar p-0 bg-base-100 px-8 md:px-12 lg:px-16 xl:px-24 shadow-sm'>
+      <div className='navbar-start'>
+        <div className='dropdown '>
+          <div
+            tabIndex={0}
+            role='button'
+            className='cursor-pointer mr-2 lg:hidden'
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-5 w-5'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
             >
-              {links}
-            </ul>
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M4 6h16M4 12h8m-8 6h16'
+              />{' '}
+            </svg>
           </div>
-          <Link to={"/"} className="font-bold text-xl">
-            FlagshipFaceOff
-          </Link>
+          <ul
+            tabIndex={0}
+            className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow'
+          >
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-indigo-500' : ''
+                }
+                to='/'
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-indigo-500' : ''
+                }
+                to='/favorites'
+              >
+                Favorites
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-indigo-500' : ''
+                }
+                to='/about'
+              >
+                About
+              </NavLink>
+            </li>
+          </ul>
         </div>
-
-        <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
-        </div>
+        <Link to='/' className='text-xl font-bold'>
+          FlagshipFaceOff
+        </Link>
+      </div>
+      <div className='navbar-end'>
+        <ul className='menu menu-horizontal px-1 hidden lg:flex'>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'text-indigo-500' : '')}
+              to='/'
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'text-indigo-500' : '')}
+              to='/about'
+            >
+              About
+            </NavLink>
+          </li>
+          <li className='relative'>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'text-indigo-500' : '')}
+              to='/cart'
+            >
+              <MdShoppingCart size={20} />
+              <p className='absolute -top-1 right-0'>{cart.length || 0}</p>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'text-indigo-500' : '')}
+              to='/favorites'
+            >
+              <MdBookmarkAdd size={20} />
+            </NavLink>
+          </li>
+        </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

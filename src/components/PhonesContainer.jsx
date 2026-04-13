@@ -1,39 +1,34 @@
-import React, { useState } from "react";
-
-import PhoneCard from "./PhoneCard";
-import MyButton from "./Shared/MyButton";
+import React, { useEffect, useState } from 'react'
+import PhoneCard from './PhoneCard'
+import Button from './shared/Button'
 
 const PhonesContainer = ({ phones }) => {
-  const [showAll, setShowAll] = useState(false);
+  const [displayPhones, setDisplayPhones] = useState([])
+  const [showAll, setShowAll] = useState(false)
+  useEffect(() => {
+    if (showAll) {
+      setDisplayPhones(phones)
+    } else {
+      setDisplayPhones(phones.slice(0, 6))
+    }
+  }, [showAll, phones])
 
   return (
-    <div>
-      <div
-        className="grid grid-cols-1 gap-8 mb-8
-     md:grid-cols-2 lg:grid-cols-3"
-      >
-        {showAll
-          ? phones.map((phone) => <PhoneCard key={phone.id} phone={phone} />)
-          : phones
-              .slice(0, 6)
-              .map((phone) => <PhoneCard key={phone.id} phone={phone} />)}
+    <div className='py-12'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8'>
+        {displayPhones.map(phone => (
+          <PhoneCard key={phone.id} phone={phone} />
+        ))}
       </div>
-      <div
+      <Button
         onClick={() => {
-          setShowAll(!showAll);
-          if (showAll) {
-            window.scrollTo({
-              top: (0, 400),
-              behavior: "smooth",
-            });
-          }
+          setShowAll(prv => !prv)
+          if (showAll) window.scrollTo(0, 0)
         }}
-        className="text-center"
-      >
-        <MyButton> {showAll ? "Show Less" : "Show All"}</MyButton>
-      </div>
+        label={showAll ? 'Show Less' : 'Show All'}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default PhonesContainer;
+export default PhonesContainer

@@ -1,20 +1,21 @@
-import React from "react";
-import { Outlet } from "react-router";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import React from 'react'
+import Navbar from '../components/Navbar'
+import { Outlet } from 'react-router'
+import Footer from '../components/Footer'
+import Container from '../components/shared/Container'
 
 const MainLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Navbar />
-
-      <main className="grow container mx-auto  md:w-11/12 py-6">
-        <Outlet />
-      </main>
-
+      <Container>
+        <div className='min-h-[calc(100vh-117px)] py-8'>
+          <Outlet />
+        </div>
+      </Container>
       <Footer />
-    </div>
-  );
-};
+    </>
+  )
+}
 
-export default MainLayout;
+export default MainLayout
