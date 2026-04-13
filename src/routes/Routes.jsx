@@ -11,7 +11,12 @@ export const router = createBrowserRouter([
     element: <MainLayout></MainLayout>,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, loader: () => fetch("/phones.json"), Component: Home },
+      {
+        index: true,
+        loader: () => fetch("/phones.json"),
+        hydrateFallbackElement: <p>loading.....</p>,
+        Component: Home,
+      },
       {
         path: "/favorites",
         Component: Favorites,
